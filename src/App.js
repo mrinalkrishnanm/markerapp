@@ -3,7 +3,6 @@ import './App.css';
 import firebase from 'firebase';
 import firebaseDataBase from 'firebase/database';
 import Map from './Map.js';
-import TopBar from './TopBar.js';
 
 class App extends Component {
   constructor() {
@@ -87,7 +86,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <TopBar />
         <div className="map-container">
           <Map containerElement={<div style={{ height: `100% `}} />} mapElement={<div style={{ height: `100%`}} />} markers={this.state.markers} />
         </div>
