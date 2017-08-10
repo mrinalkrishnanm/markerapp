@@ -43,6 +43,7 @@ class App extends Component {
     })
   }
   
+
   setInitialMarkers(markers){
     console.log(markers);
     var initialMarkers = []
@@ -91,9 +92,9 @@ class App extends Component {
         </div>
         <div className="input-form">
           <h2>Enter Location</h2>
+          <input type="text" placeholder="Enter Name" ref="key" className="title"/>
           <input type="text" placeholder="Enter Lattitude" ref="lat"  className="lattitude"/>
           <input type="text" placeholder="Enter Longitude" ref="long" className="longitude" />
-          <input type="text" placeholder="Enter Title" ref="key" className="title"/>
           <input type="submit" onClick={this.addMarker.bind(this)} className="submit"/>
         </div>
       </div>
