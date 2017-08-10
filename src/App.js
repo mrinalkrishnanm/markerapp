@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import firebase from 'firebase';
-import firebaseDataBase from 'firebase/database'
-import Map from './Map.js'
+import firebaseDataBase from 'firebase/database';
+import Map from './Map.js';
+import TopBar from './TopBar.js';
 
 class App extends Component {
   constructor() {
@@ -86,12 +87,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Map containerElement={<div style={{ height: `100% `}} />} mapElement={<div style={{ height: `100%`}} />} markers={this.state.markers} />
+        <TopBar />
+        <div className="map-container">
+          <Map containerElement={<div style={{ height: `100% `}} />} mapElement={<div style={{ height: `100%`}} />} markers={this.state.markers} />
+        </div>
         <div className="input-form">
-          <input type="text" placeholder="enter lattitude" ref="lat" />
-          <input type="text" placeholder="enter longitude" ref="long" />
-          <input type="text" placeholder="key" ref="key" />
-          <input type="submit" onClick={this.addMarker.bind(this)}/>
+          <h2>Enter Location</h2>
+          <input type="text" placeholder="Enter Lattitude" ref="lat"  className="lattitude"/>
+          <input type="text" placeholder="Enter Longitude" ref="long" className="longitude" />
+          <input type="text" placeholder="Enter Title" ref="key" className="title"/>
+          <input type="submit" onClick={this.addMarker.bind(this)} className="submit"/>
         </div>
       </div>
     );
