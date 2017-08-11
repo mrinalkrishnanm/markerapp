@@ -51,31 +51,60 @@ class App extends Component {
     console.log(this.state.markers)
     var marker = this.state.markers;
     var lattitude = this.refs.lat.value;
-    var newlattitude = parseFloat(lattitude);
     var longitude = this.refs.long.value;
-    var newlongitude = parseFloat(longitude);
     var title = this.refs.key.value;
-    marker.push({position:{lat: newlattitude,lng: newlongitude},key:title, defaultAnimation: 2});
-    var MarkerRef = firebase.database().ref("markers/");
-    var NewMarkerRef = MarkerRef.child("markers");
-    NewMarkerRef.push ({
-        position: {
-          lat: newlattitude,
-          lng: newlongitude,
-        },
-        key: title,
-        defaultAnimation: 2,
-    });
 
-    var ref = firebase.database().ref("markers/");
-    ref.on("value", function(snapshot) {
-      console.log(snapshot.val());
-      var initialMarkers = snapshot.val();
-    },function (error) {
-      console.log("Error: " + error.code);
-    });
-    console.log(marker);
-    this.setState({markers:marker});
+    var inputNodes = document.getElementsByTagName('input');
+      for(var i =0;i<inputNodes.length;i++) {
+        inputNodes[i].classList.remove("error");
+    }
+
+    if(!title){
+      setTimeout(() => {
+        document.getElementsByClassName("title")[0].classList.add("error")
+
+      }, 50)
+    }
+
+    if(!lattitude){
+      setTimeout(() => {
+        document.getElementsByClassName("lattitude")[0].classList.add("error")
+
+      }, 50)
+    }
+
+    if(!longitude){
+      setTimeout(() => {
+        document.getElementsByClassName("longitude")[0].classList.add("error")
+
+      }, 50)
+    }
+
+    else{
+      var newlattitude = parseFloat(lattitude);
+      var newlongitude = parseFloat(longitude);
+      marker.push({position:{lat: newlattitude,lng: newlongitude},key:title, defaultAnimation: 2});
+      var MarkerRef = firebase.database().ref("markers/");
+      var NewMarkerRef = MarkerRef.child("markers");
+      NewMarkerRef.push ({
+          position: {
+            lat: newlattitude,
+            lng: newlongitude,
+          },
+          key: title,
+          defaultAnimation: 2,
+      });
+
+      var ref = firebase.database().ref("markers/");
+      ref.on("value", function(snapshot) {
+        console.log(snapshot.val());
+        var initialMarkers = snapshot.val();
+      },function (error) {
+        console.log("Error: " + error.code);
+      });
+      console.log(marker);
+      this.setState({markers:marker});
+    } 
   }
 
   render() {
