@@ -7,12 +7,26 @@ class Map extends Component{
 	constructor() {
 	    super();
 	    this.state = {
-	    	map: null
+	    	map: null,
+	    	infoWindow: null,
+	    	showInfo: false
 	    }
 	  }
 	
+	displayPosition(e){
+
+		console.log("clicked"+e.latLng);
+		this.setState({infoWindow: e.latLng,showInfo: true})
+	}
 	render(){
 		const markers = this.props.markers|| []
+		var markerPosition = JSON.stringify(this.state.infoWindow);
+		if(this.state.showInfo){
+			var display = <Marker position={this.state.infoWindow} ><InfoWindow><div>{markerPosition}</div></InfoWindow></Marker>
+		}
+		else{
+			var display = ""
+		}
 		return(
 			<div>
 				<GoogleMap
@@ -21,19 +35,21 @@ class Map extends Component{
 				 >
 				    {markers.map((marker, index) => (
 				      <Marker
-				        {...marker}>
+				        {...marker} onClick={this.displayPosition.bind(this)}>
+				        
 				      </Marker>
 				    ))}
 
+				    
 				    <Marker>
-				    	<InfoWindow  position={{ lat: 13.0827, lng: 80.2707 }}>
+				    	<InfoWindow  position={{ lat: 13.0827, lng: 80.2707 }} >
 					  		<div>Chennai <br/>lat:13.0827 <br/>long: 80.2707</div>
 
 						</InfoWindow>
-					</Marker>
-					
-				  </GoogleMap>
-				</div>
+					</Marker>				
+					{display}	
+				</GoogleMap>
+			</div>
 			);
 	}
 }

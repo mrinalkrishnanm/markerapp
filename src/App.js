@@ -9,12 +9,7 @@ class App extends Component {
     super();
     this.state = {
       markers: [{
-      // position: {
-      //   lat: 13.0827,
-      //   lng: 80.2707,
-      // },
-      // key: `Chennai`,
-      // defaultAnimation: 2,
+      
     }],
     }
   }
@@ -45,7 +40,6 @@ class App extends Component {
   
 
   setInitialMarkers(markers){
-    console.log(markers);
     var initialMarkers = []
     for(var i=0;i<markers.length;i++){
       initialMarkers.push(markers[i])
