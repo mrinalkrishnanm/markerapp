@@ -14,9 +14,15 @@ class Map extends Component{
 	  }
 	
 	displayPosition(e){
-
+		//displaying intowindow on the clicked marker
 		console.log("clicked"+e.latLng);
-		this.setState({infoWindow: e.latLng,showInfo: true})
+		this.setState({infoWindow: e.latLng})
+		if(this.state.showInfo){
+			this.setState({showInfo:false})
+		}
+		if(!this.state.showInfo){
+			this.setState({showInfo:true})
+		}
 	}
 	render(){
 		const markers = this.props.markers|| []
