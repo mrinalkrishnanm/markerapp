@@ -54,7 +54,6 @@ class App extends Component {
     var lattitude = this.refs.lat.value;
     var longitude = this.refs.long.value;
     var title = this.refs.key.value;
-    var unique = false
     var inputNodes = document.getElementsByTagName('input');
       for(var i =0;i<inputNodes.length;i++) {
         inputNodes[i].classList.remove("error");
@@ -81,7 +80,7 @@ class App extends Component {
       }, 50)
     }
 
-    else{
+    else if(lattitude && title && longitude){
       var newlattitude = parseFloat(lattitude);
       var newlongitude = parseFloat(longitude);
       var uniqueTitle = title+Math.floor((Math.random() * 100000) + 1);
