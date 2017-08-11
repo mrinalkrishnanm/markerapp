@@ -49,7 +49,6 @@ class App extends Component {
   }
 
   addMarker(){
-    console.log(this.state.markers)
     var marker = this.state.markers;
     var lattitude = this.refs.lat.value;
     var longitude = this.refs.long.value;
@@ -84,7 +83,6 @@ class App extends Component {
       var newlattitude = parseFloat(lattitude);
       var newlongitude = parseFloat(longitude);
       var uniqueTitle = title+Math.floor((Math.random() * 100000) + 1);
-      console.log(uniqueTitle);
       marker.push({position:{lat: newlattitude,lng: newlongitude},key:uniqueTitle, defaultAnimation: 2});
       //new marked data is pushed into the firabase database
       var MarkerRef = firebase.database().ref("markers/");
@@ -100,12 +98,10 @@ class App extends Component {
       //To read the data after pushing, just for testing purposes
       var ref = firebase.database().ref("markers/");
       ref.on("value", function(snapshot) {
-        console.log(snapshot.val());
         var initialMarkers = snapshot.val();
       },function (error) {
         console.log("Error: " + error.code);
       });
-      console.log(marker);
       this.setState({markers:marker});
     } 
   }
