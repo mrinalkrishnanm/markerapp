@@ -12,18 +12,20 @@ class Map extends Component{
 	    	map: null,
 	    	infoWindow: null,
 	    	showInfo: false,
-	    	origin: { lat: 13.0827, lng: 80.2707 },
-    		destination:{ lat: 13.0827, lng: 80.2600 },
     		directions: null,
 	    }
 	  }
 	
-	componentDidMount(){
+	componentWillReceiveProps(){
+		this.newRoute()
+	}
+
+	newRoute(){
 		const DirectionsService = new google.maps.DirectionsService();
 
 	    DirectionsService.route({
-	      origin: this.state.origin,
-	      destination: this.state.destination,
+	      origin: this.props.source,
+	      destination: this.props.destination,
 	      travelMode: google.maps.TravelMode.DRIVING,
 	    }, (result, status) => {
 	      if (status === google.maps.DirectionsStatus.OK) {
@@ -46,6 +48,7 @@ class Map extends Component{
 		}
 	}
 	render(){
+
 		const markers = this.props.markers|| []
 		var markerPosition = JSON.stringify(this.state.infoWindow);
 		if(this.state.showInfo){

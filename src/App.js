@@ -3,6 +3,7 @@ import './App.css';
 import firebase from 'firebase';
 import Map from './Map.js';
 import Autocomplete from './Autocomplete.js';
+
 class App extends Component {
   constructor() {
     super();
@@ -10,6 +11,8 @@ class App extends Component {
       markers: [{
       
     }],
+    source:{ },
+    destination:{ }
     }
   }
 
@@ -110,11 +113,16 @@ class App extends Component {
     } 
   }
 
+  updateRoute(source,destination){
+    console.log(destination)
+    this.setState({source:source,destination:destination})
+  }
+
   render() {
     return (
       <div className="App">
         <div className="map-container">
-          <Map containerElement={<div style={{ height: `100% `}} />} mapElement={<div style={{ height: `100%`}} />} markers={this.state.markers} />
+          <Map containerElement={<div style={{ height: `100% `}} />} mapElement={<div style={{ height: `100%`}} />} markers={this.state.markers} source={this.state.source} destination={this.state.destination}/>
         </div>
         <div className="input-form">
           <h2>Enter Location</h2>
@@ -124,7 +132,7 @@ class App extends Component {
           <input type="submit" onClick={this.addMarker.bind(this)} className="submit"/>
 
         </div>
-        <Autocomplete />
+        <Autocomplete updateRoute={this.updateRoute.bind(this)}/>
       </div>
     );
   }
