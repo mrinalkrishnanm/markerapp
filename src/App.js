@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import firebase from 'firebase';
 import Map from './Map.js';
-
+import Autocomplete from './Autocomplete.js';
 class App extends Component {
   constructor() {
     super();
@@ -122,7 +122,9 @@ class App extends Component {
           <input type="text" placeholder="Enter Lattitude" ref="lat"  className="lattitude"/>
           <input type="text" placeholder="Enter Longitude" ref="long" className="longitude" />
           <input type="submit" onClick={this.addMarker.bind(this)} className="submit"/>
+
         </div>
+        <Autocomplete />
       </div>
     );
   }
