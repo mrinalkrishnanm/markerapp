@@ -4,7 +4,7 @@ body {
   font-family: sans-serif;
 }
 
-body,html,#root{
+body,html,#root,#Router{
 	height: 100%;
 	width: 100%;
 }

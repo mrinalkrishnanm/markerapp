@@ -26,18 +26,21 @@ class AutoComplete extends Component{
 
 	    setTimeout(() => {
 	    this.props.updateRoute(this.state.Source,this.state.Destination)
-	 	}, 200)
-	 	this.saveFireBase(this.state.Source,this.state.Destination)
+	    this.saveFireBase(this.state.Source,this.state.Destination)
+	 	}, 400)
 	 }
 	
 	saveFireBase(source,destination){
-		// var Route = firebase.database().ref("route/");
-  //     	var Route = Route.child("route");
-	 //     NewMarkerRef.push ({
-	 //        source: source,
-	 //        destination: destination,
+		var user_id = 1;
+		var Route = firebase.database().ref("route/"+user_id);
+      	var NewRouteRef = Route.child("route");
+	     NewRouteRef.push ({
+	        source: source,
+	        destination: destination,
+	        source_address: this.state.addressSource,
+	        destination_address: this.state.addressDestination
 	          
-	 //    });
+	    });
 
 	}
 
