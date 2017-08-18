@@ -17,7 +17,7 @@ class App extends Component {
     addressDestination: 'Chennai, Tamil Nadu, India',
     Source:{ lat: 13.0827, lng: 80.2707 },
     Destination:{ lat: 13.0827, lng: 80.2707 },
-    source:{ },
+    source:{},
     destination:{ }
     }
     this.onChangeSource = (addressSource) => this.setState({ addressSource })
@@ -65,7 +65,7 @@ class App extends Component {
 
        setTimeout(() => {
          this.saveFireBase(this.state.source,this.state.destination)
-        }, 800)
+        }, 2000)
    }
   
   shareRoute(){
@@ -81,7 +81,7 @@ class App extends Component {
 
        setTimeout(() => {
          this.shareFireBase(this.state.source,this.state.destination)
-        }, 800)
+        }, 2000)
 
   }
 
@@ -104,7 +104,7 @@ class App extends Component {
     console.log(Source)
     var user_id = 1;
     var Route = firebase.database().ref("route/"+user_id);
-        var NewRouteRef = Route.child("myRoutes");
+        var NewRouteRef = Route.child("myroutes");
        NewRouteRef.push ({
           source: Source,
           destination: Destination,

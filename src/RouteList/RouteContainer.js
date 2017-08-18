@@ -30,7 +30,7 @@ class RouteContainer extends React.Component{
     var user_id = 1;
     let Route = firebase.database().ref('route/' + user_id);
     Route.on('value', snapshot => {
-      let myRoutes = snapshot.val().myRoutes;
+      let myRoutes = snapshot.val().myroutes;
       var routes=[]
       for (var key in myRoutes) {
         if (myRoutes.hasOwnProperty(key)) {

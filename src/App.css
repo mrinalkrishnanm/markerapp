@@ -87,16 +87,25 @@
   }
 
   .route-form{
-    margin-left: 960px;
+    margin-left: 920px;
     height: 200px;
     width: 22%;
     padding: 20px;
+    width: 600px;
   }
 
   .source,.destination{ 
     margin-bottom: 20px;
+    width: 250px;
   }
 
+  .source{
+    margin-left: 20px;
+  }
+ .destination{
+  margin-left: 310px;
+  margin-top: -59px;
+ }
   .save,.share{
     width: 45%;
     margin-left: 10px;
