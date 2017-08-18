@@ -1,4 +1,5 @@
 import RouteItem from '../src/RouteList/RouteItem.js';
+import Map from '../src/Map.js';
 import React from 'react';
 import { mount } from 'enzyme';
 

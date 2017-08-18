@@ -33,7 +33,9 @@ class App extends Component {
       storageBucket: "",
       messagingSenderId: "734907452072"
     };
-    firebase.initializeApp(config);
+    if (!firebase.apps.length) {
+     firebase.initializeApp(config);
+    }
     //retrieving data from firebase
     let MarkerRef = firebase.database().ref('markers');
     MarkerRef.on('value', snapshot => {

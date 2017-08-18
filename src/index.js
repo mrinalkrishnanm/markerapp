@@ -10,10 +10,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 ReactDOM.render(<Router >
 					<div id='Router'>
-						<Route path='/home' component={App} />
-						<Route path='/list' component={RouteList} />
-						<Route path='/sharedlist' component={SharedList} />
-						<Route path='/route/:params' component={ViewRoute} />
+						<Route path={process.env.PUBLIC_URL+'/home'} component={App} />
+						<Route path={process.env.PUBLIC_URL+'/list'} component={RouteList} />
+						<Route path={process.env.PUBLIC_URL+'/sharedlist'} component={SharedList} />
+						<Route path={process.env.PUBLIC_URL+'/route/:params'} component={ViewRoute} />
 					</div>
 				</Router>, document.getElementById('root'));
 registerServiceWorker();

@@ -13,15 +13,17 @@ class SharedRouteContainer extends React.Component{
   }
   
   componentDidMount() {
-    // var config = {
-    //   apiKey: "AIzaSyCr1Ueh6G7ZntNROySqkg2Nv2ARq76byfE",
-    //   authDomain: "marker-app-95f36.firebaseapp.com",
-    //   databaseURL: "https://marker-app-95f36.firebaseio.com",
-    //   projectId: "marker-app-95f36",
-    //   storageBucket: "",
-    //   messagingSenderId: "734907452072"
-    // };
-    // firebase.initializeApp(config);
+    var config = {
+      apiKey: "AIzaSyCr1Ueh6G7ZntNROySqkg2Nv2ARq76byfE",
+      authDomain: "marker-app-95f36.firebaseapp.com",
+      databaseURL: "https://marker-app-95f36.firebaseio.com",
+      projectId: "marker-app-95f36",
+      storageBucket: "",
+      messagingSenderId: "734907452072"
+    };
+    if (!firebase.apps.length) {
+     firebase.initializeApp(config);
+    }
 
     let Route = firebase.database().ref('sharedroute/');
     Route.on('value', snapshot => {

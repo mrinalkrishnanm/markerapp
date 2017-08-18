@@ -16,6 +16,7 @@ class ViewRoute extends Component{
 
 	componentDidMount(){
 		var url = window.location.pathname.split('/');
+		console.log(url);
 		var sourceDestination = url[2].split(',')
 		this.Route(sourceDestination);
 	}
@@ -24,6 +25,8 @@ class ViewRoute extends Component{
 		const DirectionsService = new google.maps.DirectionsService();
 		var latLngSource = new google.maps.LatLng(parseFloat(coordinates[0]), parseFloat(coordinates[1]));
 		var latLngDestination = new google.maps.LatLng(parseFloat(coordinates[2]), parseFloat(coordinates[3]));
+		console.log(latLngSource);
+		console.log(latLngDestination);
 	    DirectionsService.route({
 	      origin: latLngSource,
 	      destination: latLngDestination,

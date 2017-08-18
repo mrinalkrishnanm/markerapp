@@ -17,7 +17,7 @@ class RouteItem extends React.Component {
     return(
       <div className="route-item-container">
         <h2>{route.destination_address} to {route.source_address}</h2>
-        <Link  to={{ pathname: '/route/' + route.source.lat + ',' + route.source.lng + ',' + route.destination.lat + ',' + route.destination.lng , state: { source: route.source,destination: route.destination} }}><button className="view-route">View Route </button></Link>
+        <Link  to={{pathname: process.env.PUBLIC_URL+'/route/' + route.source.lat + ',' + route.source.lng + ',' + route.destination.lat + ',' + route.destination.lng  }}><button className="view-route">View Route </button></Link>
       </div>
     )
   }
