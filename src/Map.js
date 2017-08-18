@@ -16,11 +16,19 @@ class Map extends Component{
 	    }
 	  }
 	
-	componentWillReceiveProps(){
-		this.newRoute()
+	
+	displayPosition(e){
+		//displaying intowindow on the clicked marker
+		this.setState({infoWindow: e.latLng})
+		if(this.state.showInfo){
+			this.setState({showInfo:false})
+		}
+		if(!this.state.showInfo){
+			this.setState({showInfo:true})
+		}
 	}
+	render(){
 
-	newRoute(){
 		const DirectionsService = new google.maps.DirectionsService();
 
 	    DirectionsService.route({
@@ -36,19 +44,8 @@ class Map extends Component{
 	        console.error(`error fetching directions`);
 	      }
 	    });
-	}
-	displayPosition(e){
-		//displaying intowindow on the clicked marker
-		this.setState({infoWindow: e.latLng})
-		if(this.state.showInfo){
-			this.setState({showInfo:false})
-		}
-		if(!this.state.showInfo){
-			this.setState({showInfo:true})
-		}
-	}
-	render(){
 
+	    
 		const markers = this.props.markers|| []
 		var markerPosition = JSON.stringify(this.state.infoWindow);
 		if(this.state.showInfo){

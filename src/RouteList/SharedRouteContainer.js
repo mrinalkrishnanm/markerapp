@@ -4,7 +4,7 @@ import RouteList from './RouteList';
 import Topbar from '../Topbar/TopBar';
 
 
-class RouteContainer extends React.Component{
+class SharedRouteContainer extends React.Component{
   constructor() {
     super();
     this.state = {
@@ -13,7 +13,6 @@ class RouteContainer extends React.Component{
   }
   
   componentDidMount() {
-    
     // var config = {
     //   apiKey: "AIzaSyCr1Ueh6G7ZntNROySqkg2Nv2ARq76byfE",
     //   authDomain: "marker-app-95f36.firebaseapp.com",
@@ -24,10 +23,9 @@ class RouteContainer extends React.Component{
     // };
     // firebase.initializeApp(config);
 
-    var user_id = 1;
-    let Route = firebase.database().ref('route/' + user_id);
+    let Route = firebase.database().ref('sharedroute/');
     Route.on('value', snapshot => {
-      let myRoutes = snapshot.val().myRoutes;
+      let myRoutes = snapshot.val().routes;
       var routes=[]
       for (var key in myRoutes) {
         if (myRoutes.hasOwnProperty(key)) {
@@ -44,7 +42,7 @@ class RouteContainer extends React.Component{
       <div className="route-container">
         <Topbar />
         <div className="routes" >
-          <h1>My Routes List</h1>
+          <h1>Shared Routes List</h1>
           <RouteList routes={this.state.routes} />
         </div>
       </div>
@@ -52,5 +50,5 @@ class RouteContainer extends React.Component{
   }
 }
 
-export default RouteContainer;
+export default SharedRouteContainer;
 

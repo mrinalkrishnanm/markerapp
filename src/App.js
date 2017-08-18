@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import firebase from 'firebase';
 import Map from './Map.js';
-import Autocomplete from './Autocomplete.js';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import Topbar from './Topbar/TopBar';
+
 
 class App extends Component {
   constructor() {
@@ -11,9 +13,15 @@ class App extends Component {
       markers: [{
       
     }],
+    addressSource: 'Chennai, Tamil Nadu, India',
+    addressDestination: 'Chennai, Tamil Nadu, India',
+    Source:{ lat: 13.0827, lng: 80.2707 },
+    Destination:{ lat: 13.0827, lng: 80.2707 },
     source:{ },
     destination:{ }
     }
+    this.onChangeSource = (addressSource) => this.setState({ addressSource })
+    this.onChangeDestination = (addressDestination) => this.setState({ addressDestination })
   }
 
   componentWillMount(){  
@@ -41,6 +49,69 @@ class App extends Component {
     })
   }
   
+  handleFormSubmit(){
+
+      geocodeByAddress(this.state.addressSource)
+        .then(results => getLatLng(results[0]))
+        .then(latLng => this.setState({source:latLng}))
+        .catch(error => console.error('Error', error))
+      
+      geocodeByAddress(this.state.addressDestination)
+        .then(results => getLatLng(results[0]))
+        .then(latLng => this.setState({destination:latLng}))
+        .catch(error => console.error('Error', error))
+
+       setTimeout(() => {
+         this.saveFireBase(this.state.source,this.state.destination)
+        }, 800)
+   }
+  
+  shareRoute(){
+     geocodeByAddress(this.state.addressSource)
+        .then(results => getLatLng(results[0]))
+        .then(latLng => this.setState({source:latLng}))
+        .catch(error => console.error('Error', error))
+      
+      geocodeByAddress(this.state.addressDestination)
+        .then(results => getLatLng(results[0]))
+        .then(latLng => this.setState({destination:latLng}))
+        .catch(error => console.error('Error', error))
+
+       setTimeout(() => {
+         this.shareFireBase(this.state.source,this.state.destination)
+        }, 800)
+
+  }
+
+  shareFireBase(Source,Destination){
+    console.log(Source);
+    console.log(Destination);
+    var Route = firebase.database().ref("sharedroute/");
+        var NewRouteRef = Route.child("routes");
+       NewRouteRef.push ({
+          source: Source,
+          destination: Destination,
+          source_address: this.state.addressSource,
+          destination_address: this.state.addressDestination
+            
+      });
+
+  }
+
+  saveFireBase(Source,Destination){
+    console.log(Source)
+    var user_id = 1;
+    var Route = firebase.database().ref("route/"+user_id);
+        var NewRouteRef = Route.child("myRoutes");
+       NewRouteRef.push ({
+          source: Source,
+          destination: Destination,
+          source_address: this.state.addressSource,
+          destination_address: this.state.addressDestination
+            
+      });
+
+  }
 
   setInitialMarkers(markers){
     //initial marker object is converted into array format which can be passed as props into Map component
@@ -113,14 +184,18 @@ class App extends Component {
     } 
   }
 
-  updateRoute(source,destination){
-    console.log(destination)
-    this.setState({source:source,destination:destination})
-  }
-
   render() {
+    const inputPropsSource = {
+      value: this.state.addressSource,
+      onChange: this.onChangeSource,
+    }
+    const inputPropsDestination = {
+      value: this.state.addressDestination,
+      onChange: this.onChangeDestination,
+    }
     return (
       <div className="App">
+        <Topbar />
         <div className="map-container">
           <Map containerElement={<div style={{ height: `100% `}} />} mapElement={<div style={{ height: `100%`}} />} markers={this.state.markers} source={this.state.source} destination={this.state.destination}/>
         </div>
@@ -130,9 +205,18 @@ class App extends Component {
           <input type="text" placeholder="Enter Lattitude" ref="lat"  className="lattitude"/>
           <input type="text" placeholder="Enter Longitude" ref="long" className="longitude" />
           <input type="submit" onClick={this.addMarker.bind(this)} className="submit"/>
-
         </div>
-        <Autocomplete updateRoute={this.updateRoute.bind(this)}/>
+        <div className="route-form">
+          <h2>Enter Source and Destination</h2>
+          <div className="source">
+            <PlacesAutocomplete inputProps={inputPropsSource} />
+          </div>
+          <div className="destination">
+            <PlacesAutocomplete inputProps={inputPropsDestination}/>
+          </div>
+          <button type="submit" onClick={this.handleFormSubmit.bind(this)} className="save">Save</button>
+          <button type="submit" onClick={this.shareRoute.bind(this)} className="share">Share</button>
+        </div>
       </div>
     );
   }

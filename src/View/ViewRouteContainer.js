@@ -1,6 +1,7 @@
 /*global google*/
 import React, { Component } from 'react';
 import ViewRoute from './ViewRoute';
+import Topbar from '../Topbar/TopBar';
 class ViewRouteContainer extends Component{
 	constructor() {
 	    super();
@@ -14,6 +15,7 @@ class ViewRouteContainer extends Component{
 
 		return(
 			<div  className="route-view-container">
+				<Topbar />
 				<div className="route-view">
 		          <ViewRoute containerElement={<div style={{ height: `1000px `}} />} mapElement={<div style={{ height: `1000px`}} />}/>
 		        </div>
